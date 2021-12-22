@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
   //Where files should be sent once they are bundled
@@ -36,5 +37,26 @@ module.exports = {
       },
     ]
   },
-  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' }), new MiniCssExtractPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({ template: './src/index.html' }), 
+    new MiniCssExtractPlugin(),
+    new ModuleFederationPlugin({
+      name: "root",
+      filename: "remoteEntry.js",
+      remotes: {
+        // libs: "libs@http://localhost:4100/remoteEntry.js",
+      },
+      exposes: {
+        // "./react": "react",
+        // "./react-dom": "react-dom",
+        // "./react-router-dom": "react-router-dom",
+        // "./styled-components": "styled-components",
+      },
+      shared: {
+        // react: {singleton: true},
+        // 'react-dom': {singleton: true},
+      }
+    }),
+  
+  ],
 }
