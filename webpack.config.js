@@ -51,12 +51,14 @@ module.exports = {
         // libs: "libs@http://localhost:4100/remoteEntry.js",
       },
       exposes: {
+        // This is how libraries can be exposed
         // "./react": "react",
         // "./react-dom": "react-dom",
         // "./react-router-dom": "react-router-dom",
         // "./styled-components": "styled-components",
       },
       shared: {
+        // How to specify shared libraries to load only single instance
         // react: {singleton: true},
         // 'react-dom': {singleton: true},
       }
